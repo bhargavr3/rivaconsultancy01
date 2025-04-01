@@ -463,6 +463,8 @@
 <!-- Why Choose Us Section End -->
 
 <!-- Loan Calculator Section -->
+
+<!-- Loan Calculator Section -->
 <div class="container-fluid bg-blue-light py-5" style="background-color: #f0f8ff;">
     <div class="container">
         <div class="row justify-content-center">
@@ -564,7 +566,8 @@
                     <!-- Amortization Schedule Section -->
                     <div class="row mt-4" id="amortizationSection" style="display: none;">
                         <div class="col-12">
-                            <div class="card shadow-sm">
+                            <!-- Yearly Schedule -->
+                            <div class="card shadow-sm mb-4">
                                 <div class="card-header bg-primary text-white">
                                     <h5 class="mb-0"><i class="fas fa-table me-2"></i> Amortization Schedule (Yearly)</h5>
                                 </div>
@@ -587,7 +590,38 @@
                                     </div>
                                 </div>
                                 <div class="card-footer text-muted small">
-                                    <i class="fas fa-info-circle me-2"></i>This schedule shows the yearly breakdown of your loan repayment.
+                                    <i class="fas fa-info-circle me-2"></i>Click on any year to view monthly breakdown.
+                                </div>
+                            </div>
+                            
+                            <!-- Monthly Schedule (hidden by default) -->
+                            <div class="card shadow-sm" id="monthlyScheduleCard" style="display: none;">
+                                <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0"><i class="fas fa-calendar-alt me-2"></i> Monthly Amortization for Year <span id="selectedYear"></span></h5>
+                                    <button type="button" class="btn btn-sm btn-light" id="closeMonthlySchedule">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                                <div class="card-body p-0">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered mb-0">
+                                            <thead class="bg-light">
+                                                <tr>
+                                                    <th>Month</th>
+                                                    <th>Principal (₹)</th>
+                                                    <th>Interest (₹)</th>
+                                                    <th>Balance (₹)</th>
+                                                    <th>Paid (%)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="monthlyAmortizationTableBody">
+                                                <!-- Will be populated by JavaScript -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="card-footer text-muted small">
+                                    <i class="fas fa-info-circle me-2"></i>Detailed monthly payment breakdown for the selected year.
                                 </div>
                             </div>
                         </div>
@@ -616,6 +650,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const displayLoanTenure = document.getElementById('displayLoanTenure');
     const amortizationSection = document.getElementById('amortizationSection');
     const amortizationTableBody = document.getElementById('amortizationTableBody');
+    const monthlyScheduleCard = document.getElementById('monthlyScheduleCard');
+    const monthlyAmortizationTableBody = document.getElementById('monthlyAmortizationTableBody');
+    const selectedYearSpan = document.getElementById('selectedYear');
+    const closeMonthlyScheduleBtn = document.getElementById('closeMonthlySchedule');
+
+    // Store amortization data for monthly view
+    let amortizationData = [];
+    let monthlyData = {};
 
     // Calculate EMI on button click
     calculateEmiBtn.addEventListener('click', calculateEmi);
@@ -623,6 +665,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Also calculate when inputs change
     [loanAmountInput, interestRateInput, loanTenureInput].forEach(input => {
         input.addEventListener('input', calculateEmi);
+    });
+
+    // Close monthly schedule
+    closeMonthlyScheduleBtn.addEventListener('click', function() {
+        monthlyScheduleCard.style.display = 'none';
     });
 
     // Initial calculation
@@ -665,6 +712,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Show amortization section
         amortizationSection.style.display = 'block';
+        // Hide monthly schedule when recalculating
+        monthlyScheduleCard.style.display = 'none';
     }
     
     function generateAmortizationSchedule(principal, monthlyRate, months, emi) {
@@ -673,10 +722,28 @@ document.addEventListener('DOMContentLoaded', function() {
         let year = new Date().getFullYear();
         let html = '';
         
+        // Reset stored data
+        amortizationData = [];
+        monthlyData = {};
+        
         // Calculate monthly and then aggregate yearly
         for (let month = 1; month <= months; month++) {
             const interestForMonth = balance * monthlyRate;
             const principalForMonth = emi - interestForMonth;
+            
+            // Store monthly data for detailed view
+            const currentYear = year + Math.floor((month - 1) / 12);
+            if (!monthlyData[currentYear]) {
+                monthlyData[currentYear] = [];
+            }
+            
+            monthlyData[currentYear].push({
+                month: month,
+                principal: principalForMonth,
+                interest: interestForMonth,
+                balance: balance - principalForMonth,
+                paidPercent: ((totalPaid + principalForMonth) / principal * 100)
+            });
             
             // Only show yearly entries (or when balance reaches zero)
             if (month % 12 === 0 || month === months) {
@@ -699,13 +766,25 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 totalPaid += yearPrincipal;
                 const paidPercent = (totalPaid / principal * 100).toFixed(2);
+                const yearEndBalance = balance - yearPrincipal;
+                
+                // Store yearly data for click events
+                amortizationData.push({
+                    year: year,
+                    startMonth: yearStartMonth,
+                    endMonth: yearEndMonth,
+                    principal: yearPrincipal,
+                    interest: yearInterest,
+                    balance: yearEndBalance,
+                    paidPercent: paidPercent
+                });
                 
                 html += `
-                    <tr>
+                    <tr class="yearly-row" data-year="${year}" data-start="${yearStartMonth}" data-end="${yearEndMonth}">
                         <td>${year}</td>
                         <td>₹${Math.round(yearPrincipal).toLocaleString('en-IN')}</td>
                         <td>₹${Math.round(yearInterest).toLocaleString('en-IN')}</td>
-                        <td>₹${Math.round(balance - yearPrincipal).toLocaleString('en-IN')}</td>
+                        <td>₹${Math.round(yearEndBalance).toLocaleString('en-IN')}</td>
                         <td>${paidPercent}%</td>
                     </tr>
                 `;
@@ -724,11 +803,53 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         amortizationTableBody.innerHTML = html;
+        
+        // Add click event to yearly rows
+        document.querySelectorAll('.yearly-row').forEach(row => {
+            row.addEventListener('click', function() {
+                const year = this.getAttribute('data-year');
+                const startMonth = parseInt(this.getAttribute('data-start'));
+                const endMonth = parseInt(this.getAttribute('data-end'));
+                
+                showMonthlySchedule(year, startMonth, endMonth);
+            });
+        });
     }
     
-    // Helper function to format numbers with commas
-    function formatNumber(num) {
-        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    function showMonthlySchedule(year, startMonth, endMonth) {
+        selectedYearSpan.textContent = year;
+        
+        // Generate monthly table
+        let html = '';
+        const yearData = monthlyData[year];
+        
+        if (yearData) {
+            yearData.forEach(month => {
+                html += `
+                    <tr>
+                        <td>${getMonthName((month.month - 1) % 12)} ${year + Math.floor((month.month - 1) / 12)}</td>
+                        <td>₹${Math.round(month.principal).toLocaleString('en-IN')}</td>
+                        <td>₹${Math.round(month.interest).toLocaleString('en-IN')}</td>
+                        <td>₹${Math.round(month.balance).toLocaleString('en-IN')}</td>
+                        <td>${month.paidPercent.toFixed(2)}%</td>
+                    </tr>
+                `;
+            });
+        }
+        
+        monthlyAmortizationTableBody.innerHTML = html;
+        monthlyScheduleCard.style.display = 'block';
+        
+        // Scroll to monthly schedule
+        monthlyScheduleCard.scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    function getMonthName(monthIndex) {
+        const months = [
+            'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+        ];
+        return months[monthIndex];
     }
 });
 </script>
