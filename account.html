@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Professional Accounting Services in Rajkot | Bookkeeping, Tax Filing & Financial Reporting | Riva Consultancy</title>
+    <meta name="description" content="Riva Consultancy provides expert accounting services in Rajkot including GST filing, bookkeeping, financial reporting & tax preparation. Trusted since 2015. Call +91 6356350011">
+    <meta name="keywords" content="accounting services Rajkot, bookkeeping services Gujarat, GST filing experts, tax preparation Rajkot, financial reporting, Riva Consultancy accounting">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Riva Consultancy">
+
+    <!-- Accounting Services Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "Accounting Services",
+      "provider": {
+        "@type": "ProfessionalService",
+        "name": "Riva Consultancy",
+        "url": "https://www.rivaconsultancy.com",
+        "logo": "https://www.rivaconsultancy.in/img/logo 1.svg",
+        "priceRange": "₹₹",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "513, Shivalay Complex, Mavdi Chowkadi",
+          "addressLocality": "Rajkot",
+          "addressRegion": "Gujarat",
+          "postalCode": "360004",
+          "addressCountry": "India"
+        },
+        "telephone": "+916356350011",
+        "email": "rivaconsultancy001@gmail.com",
+        "openingHoursSpecification": {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+          "opens": "10:00",
+          "closes": "19:00"
+        }
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Accounting Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Bookkeeping Services",
+              "description": "Daily/monthly financial record maintenance with ledger management"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "GST Filing",
+              "description": "Monthly/quarterly GST return preparation and compliance"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Tax Preparation",
+              "description": "Income tax planning, filing and audit representation"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Financial Reporting",
+              "description": "Balance sheets, profit/loss statements and cash flow analysis"
+            }
+          }
+        ]
+      }
+    }
+    </script>
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:slnt,wght@-10..0,100..900&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link rel="stylesheet" href="lib/animate/animate.min.css"/>
+    <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <link rel="icon" type="image/svg" href="img/favicon.png" sizes="96x96" />
+    
+    <!-- Accounting Page Specific CSS -->
+    <style>
+        /* Hero Section - Accounting Specific */
+        .accounting-hero {
+            background: linear-gradient(rgba(0, 26, 255, 0.7), rgb(1, 7, 118)), url('img/tax-bg.jpg') center/cover no-repeat;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        .accounting-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .accounting-hero p {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.9);
+            max-width: 700px;
+        }
+        
+        /* Service Cards */
+        .accounting-service-card {
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            height: 100%;
+        }
+        
+        .accounting-service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .accounting-service-card .card-icon {
+            font-size: 2.5rem;
+            color: #0d6efd;
+            margin-bottom: 1rem;
+        }
+        
+        .accounting-service-card .card-title {
+            font-weight: 700;
+            color: #333;
+        }
+        
+        /* Feature Section */
+        .accounting-feature-box {
+            padding: 30px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .accounting-feature-box:hover {
+            background: #fff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .accounting-feature-box .feature-icon {
+            font-size: 2rem;
+            color: #0d6efd;
+            margin-bottom: 1rem;
+        }
+        
+        /* Process Section */
+        .accounting-process {
+            position: relative;
+        }
+        
+        .accounting-process:before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 80%;
+            background: #0d6efd;
+            z-index: 1;
+        }
+        
+        .accounting-process-step {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .accounting-process-step .step-number {
+            width: 80px;
+            height: 80px;
+            background: #0d6efd;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 0 auto 20px;
+            box-shadow: 0 5px 15px rgba(13, 110, 253, 0.3);
+        }
+        
+        /* Testimonial Section */
+        .accounting-testimonial {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            position: relative;
+        }
+        
+        .accounting-testimonial:before {
+            content: '\201C';
+            font-family: Georgia, serif;
+            font-size: 4rem;
+            color: #0d6efd;
+            opacity: 0.2;
+            position: absolute;
+            top: 10px;
+            left: 20px;
+        }
+        
+        .accounting-testimonial .client-name {
+            font-weight: 700;
+            color: #0d6efd;
+        }
+        
+        /* CTA Section */
+        .accounting-cta {
+            background: linear-gradient(135deg, #0d6efd 0%, #0b5ed7 100%);
+            color: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .accounting-cta:before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            transform: rotate(30deg);
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .accounting-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .accounting-process:before {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+    <!-- Topbar Start -->
+    <div class="container-fluid topbar px-0 px-lg-4 bg-light py-2 d-none d-lg-block">
+        <div class="container">
+            <div class="row gx-0 align-items-center">
+                <div class="col-lg-8 text-center text-lg-start mb-lg-0">
+                    <div class="d-flex flex-wrap">
+                        <div class="border-end border-primary pe-3">
+                            <a href="https://g.co/kgs/izu6eBR" class="text-muted small"><i class="fas fa-map-marker-alt text-primary me-2"></i>Find A Location</a>
+                        </div>
+                        
+                        <div class="ps-3">
+                            <a href="tel:+916356350011" class="text-muted small"><i class="fas fa-envelope text-primary me-2"></i>+91 635 635 00 11</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-center text-lg-end">
+                    <div class="d-flex justify-content-end">
+                        <a class="btn p-0 text-primary me-3" href="https://www.facebook.com/profile.php?id=61560014769150&mibextid=ZbWKwL"><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn p-0 text-primary me-3" href="https://www.instagram.com/Riva.consultancy/"><i class="fab fa-instagram"></i></a>
+                        <a class="btn p-0 text-primary me-0" href="https://www.linkedin.com/in/riva-consultancy-a54873225/"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar End -->
+
+    <!-- Navbar Start -->
+    <div class="container-fluid nav-bar px-0 px-lg-4 py-lg-0">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light"> 
+                <img src="img/logo 1.svg" alt="Logo" style="width: 100px; height: auto;">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="fa fa-bars"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav mx-0 mx-lg-5">
+                        <a href="index.html" class="nav-item nav-link">Home</a>
+                        <a href="about.html" class="nav-item nav-link">About</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link" data-bs-toggle="dropdown">
+                                <span class="dropdown-toggle active">Services</span>
+                            </a>
+                            <div class="dropdown-menu">
+                                <a href="account.html" class="dropdown-item active">Accounting</a>
+                                    <a href="gstfilling.html" class="dropdown-item">GST Filing</a>
+                                    <a href="insurance.html" class="dropdown-item">Insurance</a>
+                                    <a href="loan.html" class="dropdown-item">All Types of Loans</a>
+                                    <a href="sip.html" class="dropdown-item">SIP/Mutual Funds</a>
+                                    <a href="udyamreg.html" class="dropdown-item">Udyam Register</a>
+                                    <a href="incometax.html" class="dropdown-item">IT Return</a>
+                                    <a href="trustreg.html" class="dropdown-item">Trust Registration</a>
+                                    <a href="entityreg.html" class="dropdown-item">Entity Registration</a>
+                                    <a href="cma.html" class="dropdown-item">CMA Report</a>
+                                    <a href="gstcomp.html" class="dropdown-item">GST Compliance</a>
+                                    <a href="grants.html" class="dropdown-item">Govt Grants</a>
+                                    <a href="tmreg.html" class="dropdown-item">TM Registration</a>
+                                    <a href="pancard.html" class="dropdown-item">Pan Card</a>
+                            </div>
+                        </div>
+                        <a href="know.html" class="nav-item nav-link">Knowledge Place</a>
+                        <a href="contact.html" class="nav-item nav-link">Contact</a>
+                    </div>
+                </div>
+                <div class="d-none d-xl-flex flex-shrink-0 ps-4">
+                    <a href="#" class="btn btn-light btn-lg-square rounded-circle position-relative wow tada" data-wow-delay=".9s">
+                        <i class="fa fa-phone-alt fa-2x"></i>
+                        <div class="position-absolute" style="top: 7px; right: 12px;">
+                            <span><i class="fa fa-comment-dots text-secondary"></i></span>
+                        </div>
+                    </a>
+                    <div class="d-flex flex-column ms-3">
+                        <span>Call to Our Experts</span>
+                        <a href="tel:+91 635 635 00 11"><span class="text-dark">Free: +91 635 635 00 11</span></a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+    <!-- Accounting Hero Section Start -->
+    <div class="container-fluid accounting-hero py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-lg-8 col-md-6">
+                    <h1 class="display-4 mb-3 animated slideInDown">Professional Accounting Services</h1>
+                    <p class="animated slideInDown">Streamline your financial operations with our expert accounting services. From bookkeeping to financial reporting, we provide comprehensive solutions tailored to your business needs.</p>
+                    <a href="#contact" class="btn btn-primary py-3 px-5 animated slideInDown">Get Started Today</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Accounting Hero Section End -->
+
+    <!-- Accounting Services Section Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+                <h2 class="display-6 mb-5">Comprehensive Accounting Solutions</h2>
+                <p class="mb-5">Our accounting services are designed to provide clarity, accuracy, and strategic insights for your business finances.</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="accounting-service-card card h-100 p-4">
+                        <div class="card-body text-center">
+                            <div class="card-icon mb-3">
+                                <i class="fas fa-book fa-3x"></i>
+                            </div>
+                            <h4 class="card-title mb-3">Bookkeeping Services</h4>
+                            <p class="card-text">Accurate recording of financial transactions to maintain up-to-date records and ensure compliance with accounting standards.</p>
+                            <ul class="text-start ps-4">
+                                <li>Daily transaction recording</li>
+                                <li>Accounts payable/receivable</li>
+                                <li>Bank reconciliation</li>
+                                <li>Financial statement preparation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="accounting-service-card card h-100 p-4">
+                        <div class="card-body text-center">
+                            <div class="card-icon mb-3">
+                                <i class="fas fa-file-invoice-dollar fa-3x"></i>
+                            </div>
+                            <h4 class="card-title mb-3">Tax Preparation</h4>
+                            <p class="card-text">Expert tax planning and preparation services to minimize liabilities and ensure full compliance with tax regulations.</p>
+                            <ul class="text-start ps-4">
+                                <li>Income tax filing</li>
+                                <li>Tax planning strategies</li>
+                                <li>Quarterly estimated taxes</li>
+                                <li>Tax audit support</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="accounting-service-card card h-100 p-4">
+                        <div class="card-body text-center">
+                            <div class="card-icon mb-3">
+                                <i class="fas fa-chart-line fa-3x"></i>
+                            </div>
+                            <h4 class="card-title mb-3">Financial Reporting</h4>
+                            <p class="card-text">Comprehensive financial reports that provide valuable insights into your business performance and financial health.</p>
+                            <ul class="text-start ps-4">
+                                <li>Balance sheets</li>
+                                <li>Income statements</li>
+                                <li>Cash flow analysis</li>
+                                <li>Custom financial dashboards</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Accounting Services Section End -->
+
+    <!-- Why Choose Us Section Start -->
+    <div class="container-fluid bg-light py-5">
+        <div class="container">
+            <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+                <h2 class="display-6 mb-5">Why Choose Riva Consultancy</h2>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="accounting-feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <h4>Expert Accountants</h4>
+                        <p>Our team consists of certified professionals with extensive experience across industries.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="accounting-feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <h4>Data Security</h4>
+                        <p>We implement robust security measures to protect your sensitive financial information.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="accounting-feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-rupee-sign"></i>
+                        </div>
+                        <h4>Cost Effective</h4>
+                        <p>Get premium accounting services at competitive rates that fit your budget.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+                    <div class="accounting-feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h4>Dedicated Support</h4>
+                        <p>Our team is always available to answer your questions and provide guidance.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Why Choose Us Section End -->
+
+<!-- Our Process Section Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+            <h2 class="display-6 mb-5">Our Simple Accounting Process</h2>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="accounting-process-step text-center h-100 p-4 bg-light rounded">
+                    <div class="step-number bg-primary text-white rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 60px; height: 60px; font-size: 1.5rem; font-weight: 700;">1</div>
+                    <h4 class="mb-3">Initial Consultation</h4>
+                    <p class="mb-0">We discuss your business needs and accounting requirements.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="accounting-process-step text-center h-100 p-4 bg-light rounded">
+                    <div class="step-number bg-primary text-white rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 60px; height: 60px; font-size: 1.5rem; font-weight: 700;">2</div>
+                    <h4 class="mb-3">Data Collection</h4>
+                    <p class="mb-0">You provide financial documents through secure channels.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="accounting-process-step text-center h-100 p-4 bg-light rounded">
+                    <div class="step-number bg-primary text-white rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 60px; height: 60px; font-size: 1.5rem; font-weight: 700;">3</div>
+                    <h4 class="mb-3">Processing & Analysis</h4>
+                    <p class="mb-0">Our experts organize and analyze your financial data.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+                <div class="accounting-process-step text-center h-100 p-4 bg-light rounded">
+                    <div class="step-number bg-primary text-white rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 60px; height: 60px; font-size: 1.5rem; font-weight: 700;">4</div>
+                    <h4 class="mb-3">Reporting & Review</h4>
+                    <p class="mb-0">We deliver comprehensive reports and review findings with you.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Our Process Section End -->
+
+<!-- Accounting Software Section Start -->
+<div class="container-fluid bg-light py-5">
+    <div class="container">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-12 wow fadeIn" data-wow-delay="0.5s">
+                <h2 class="display-6 mb-4">Modern Accounting Solutions</h2>
+                <p class="mb-4">We leverage cutting-edge accounting software to provide efficient, accurate, and real-time financial management for your business.</p>
+                <div class="row g-4">
+                    <div class="col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-check-circle text-primary me-2"></i>
+                            <span>Cloud-based accounting platforms</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-check-circle text-primary me-2"></i>
+                            <span>Automated transaction processing</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-check-circle text-primary me-2"></i>
+                            <span>Real-time financial dashboards</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-check-circle text-primary me-2"></i>
+                            <span>Secure document management</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-check-circle text-primary me-2"></i>
+                            <span>Mobile access to financial data</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-check-circle text-primary me-2"></i>
+                            <span>Integration with banking systems</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Accounting Software Section End -->
+
+
+
+    <!-- CTA Section Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="accounting-cta rounded p-5 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="row g-4 justify-content-center">
+                    <div class="col-lg-8">
+                        <h2 class="display-6 text-white mb-4 text-center">Ready to Transform Your Accounting?</h2>
+                        <p class="text-white text-center mb-4">Let our experts handle your finances so you can focus on growing your business. Schedule a free consultation today.</p>
+                        <div class="text-center">
+                            <a class="btn btn-light py-3 px-5" href="contact.html">Get Started Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- CTA Section End -->
+
+    <!-- FAQ Section Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+                <h2 class="display-6 mb-5">Frequently Asked Questions</h2>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="accordion" id="accordionExample">
+                        <div class="accordion-item wow fadeInUp" data-wow-delay="0.1s">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    What accounting services do you offer?
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    We offer comprehensive accounting services including bookkeeping, financial statement preparation, tax planning and preparation, payroll processing, accounts payable/receivable management, budgeting and forecasting, and financial analysis. Our services are tailored to meet the specific needs of businesses across various industries.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item wow fadeInUp" data-wow-delay="0.2s">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    How much do your accounting services cost?
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    Our pricing depends on the scope of services required, the size of your business, and the complexity of your financial situation. We offer flexible pricing models including monthly retainers, project-based fees, and hourly rates. During our initial consultation, we'll assess your needs and provide transparent pricing options.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item wow fadeInUp" data-wow-delay="0.3s">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    How do you ensure the security of my financial data?
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    We take data security very seriously. All client data is stored in secure, encrypted cloud-based systems with multi-factor authentication. Our team follows strict confidentiality protocols, and we conduct regular security audits. We also use secure file-sharing platforms for document exchange and maintain comprehensive backup systems.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item wow fadeInUp" data-wow-delay="0.4s">
+                            <h2 class="accordion-header" id="headingFour">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                    What makes your accounting services different?
+                                </button>
+                            </h2>
+                            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    Unlike traditional accounting firms, we combine technical expertise with business advisory services. We don't just record numbers - we analyze them to provide actionable insights for your business growth. Our team stays updated on the latest accounting technologies and regulations, and we customize our approach based on your specific industry and business model.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FAQ Section End -->
+
+    <!-- Complete New Footer -->
+    <div class="container-fluid newfooter-main py-5 wow fadeIn" data-wow-delay="0.2s">
+        <div class="container">
+            <div class="row g-4">
+                <!-- Column 1: About + Contact -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="newfooter-about">
+                        <a href="index.html" class="newfooter-logo d-block mb-3">
+                            <h3 class="text-white"></i>Riva Consultancy</h3>
+                        </a>
+                        <p class="newfooter-description text-white mb-4">
+                            Expert financial help for tax, loans & more. We simplify your money matters!
+                        </p>
+                        
+                        <!-- Contact Info -->
+                        <div class="newfooter-contact-info mb-4">
+                            <div class="newfooter-contact-item d-flex mb-3">
+                                <i class="fas fa-map-marker-alt newfooter-contact-icon me-3"></i>
+                                <p class="text-white mb-0">Office 513, Shivalay Complex, Rajkot</p>
+                            </div>
+                            <div class="newfooter-contact-item d-flex mb-3">
+                                <i class="fas fa-envelope newfooter-contact-icon me-3"></i>
+                                <p class="text-white mb-0">rivaconsultancy001@gmail.com</p>
+                            </div>
+                            <div class="newfooter-contact-item d-flex">
+                                <i class="fas fa-phone-alt newfooter-contact-icon me-3"></i>
+                                <p class="text-white mb-0">(+91) 635 635 00 11</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Social Links -->
+                        <div class="newfooter-social">
+                            <a href="#" class="newfooter-social-link me-2"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="newfooter-social-link me-2"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="newfooter-social-link me-2"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" class="newfooter-social-link"><i class="fab fa-whatsapp"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                  <!-- Column 2: Quick Links -->
+            <div class="col-lg-2 col-md-6">
+                <div class="newfooter-links">
+                    <h4 class="newfooter-heading text-white mb-3">Quick Links</h4>
+                    <a href="index.html" class="newfooter-link d-block mb-2"><i class="fas fa-angle-right me-2"></i> Home</a>
+                    <a href="about.html" class="newfooter-link d-block mb-2"><i class="fas fa-angle-right me-2"></i> About</a>
+                    <a href="account.html" class="newfooter-link d-block mb-2"><i class="fas fa-angle-right me-2"></i> Services</a>
+                    <a href="know.html" class="newfooter-link d-block mb-2"><i class="fas fa-angle-right me-2"></i> Knowledge Place</a>
+                    <a href="contact.html" class="newfooter-link d-block"><i class="fas fa-angle-right me-2"></i> Contact</a>
+                </div>
+            </div>
+                
+                <!-- Column 3: Instagram (3x2 Grid) -->
+                <div class="col-lg-6 col-md-12">
+                    <div class="newfooter-instagram">
+                        <h4 class="newfooter-heading text-white mb-3">Our Gallery</h4>
+                        <div class="row g-2">
+                            <!-- Top Row -->
+                            <div class="col-4">
+                                <a href="https://www.instagram.com/p/DGazFiHNl0u/" class="newfooter-instagram-post" target="_blank" rel="noopener noreferrer">
+                                    <img src="img/3.png" class="img-fluid w-100" alt="Gallery 1">
+                                </a>
+                            </div>
+                            <div class="col-4">
+                                <a href="https://www.instagram.com/p/DD8yXXkt0BB/" class="newfooter-instagram-post" target="_blank" rel="noopener noreferrer">
+                                    <img src="img/GST.png" class="img-fluid w-100" alt="Gallery 2">
+                                </a>
+                            </div>
+                            <div class="col-4">
+                                <a href="https://www.instagram.com/p/DCiykKyTjdy/" class="newfooter-instagram-post" target="_blank" rel="noopener noreferrer">
+                                    <img src="img/Home Loan.png" class="img-fluid w-100" alt="Gallery 3">
+                                </a>
+                            </div>
+                            
+                            <!-- Bottom Row -->
+                            <div class="col-4">
+                                <a href="https://www.instagram.com/p/DC8ZfmTNPAy/" class="newfooter-instagram-post" target="_blank" rel="noopener noreferrer">
+                                    <img src="img/Random.png" class="img-fluid w-100" alt="Gallery 4">
+                                </a>
+                            </div>
+                            <div class="col-4">
+                                <a href="https://www.instagram.com/p/DCZMH77MdbU/" class="newfooter-instagram-post" target="_blank" rel="noopener noreferrer">
+                                    <img src="img/IT Return.png" class="img-fluid w-100" alt="Gallery 5">
+                                </a>
+                            </div>
+                            <div class="col-4">
+                                <a href="https://www.instagram.com/p/DDABEAqzMUN/" class="newfooter-instagram-post" target="_blank" rel="noopener noreferrer">
+                                    <img src="img/personal business.png" class="img-fluid w-100" alt="Gallery 6">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Copyright -->
+            <div class="newfooter-copyright text-center mt-5 pt-4 border-top border-secondary">
+                <p class="text-white-50 mb-0">&copy; 2025 Riva Consultancy. All Rights Reserved.</p>
+            </div>
+        </div>
+    </div>
+    <!-- Complete New Footer -->
+    
+    <!-- Copyright Start -->
+    <div class="container-fluid copyright py-4">
+        <div class="container">
+            <div class="row g-4 align-items-center">
+                <div class="col-md-6 text-center text-md-end mb-md-0">
+                    <span class="text-body"><a href="rivaconsultancy.in" class="border-bottom text-white"><i class="fas fa-copyright text-light me-2"></i>Riva Consultancy</a>, All right reserved.</span>
+                </div>
+                <div class="col-md-6 text-center text-md-start text-body">
+                    Developed By <a class="border-bottom text-white">Futureflex Infotech
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Copyright End -->
+
+   <!-- WP Button -->
+   <a 
+   href="https://wa.me/916356350011?text=Hello%20Riva%20Consultancy%2C%0ACan%20we%20chat%20for%20a%20service%3F" 
+   class="whatsapp-button" 
+   target="_blank"
+   rel="noopener noreferrer"
+>
+   <i class="fab fa-whatsapp"></i>
+</a>
+
+        <!-- Back to Top -->
+
+        <a href="#" class="btn btn-primary btn-lg-square rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>   
+
+    <!-- JavaScript Libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/counterup/counterup.min.js"></script>
+    <script src="lib/lightbox/js/lightbox.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+    
+    <!-- Accounting Page Specific JS -->
+    <script>
+        // Initialize testimonial carousel
+        $('.testimonial-carousel').owlCarousel({
+            autoplay: true,
+            smartSpeed: 1000,
+            margin: 30,
+            dots: true,
+            loop: true,
+            responsive: {
+                0:{
+                    items:1
+                },
+                768:{
+                    items:2
+                }
+            }
+        });
+    </script>
+</body>
+</html>
