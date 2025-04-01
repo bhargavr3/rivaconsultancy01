@@ -307,7 +307,6 @@
     <!-- SIP Services Section End -->
 
 
-
 <!-- SIP Calculator with Blue Theme -->
 <div class="container-fluid bg-blue-light py-5" style="background-color: #f0f8ff;">
     <div class="container">
@@ -358,6 +357,19 @@
                 <button id="calculateBtn" class="btn btn-primary btn-lg w-100 py-3">
                   <i class="fas fa-calculator me-2"></i> Calculate Now
                 </button>
+                
+                <!-- Loading Indicator -->
+                <div id="loadingIndicator" class="text-center mt-3" style="display: none;">
+                  <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Calculating...</span>
+                  </div>
+                  <p class="mt-2 text-muted">Calculating your investment growth...</p>
+                </div>
+                
+                <!-- Success Message -->
+                <div id="successMessage" class="alert alert-success mt-3 text-center" style="display: none;">
+                  <i class="fas fa-check-circle me-2"></i> SIP calculation complete!
+                </div>
               </div>
   
               <!-- Results Section -->
@@ -418,6 +430,10 @@
   // Calculate SIP results
   function calculateSIP() {
     try {
+      // Show loading indicator
+      document.getElementById('loadingIndicator').style.display = 'block';
+      document.getElementById('successMessage').style.display = 'none';
+      
       // Get input values
       const monthly = parseFloat(document.getElementById('sipAmount').value);
       const years = parseFloat(document.getElementById('sipYears').value);
@@ -448,7 +464,20 @@
       document.getElementById('returnRate').textContent = returnRate.toFixed(1) + '%';
       document.getElementById('investmentPeriod').textContent = years + ' Years';
       
+      // Hide loading and show success after a short delay (for visual effect)
+      setTimeout(function() {
+        document.getElementById('loadingIndicator').style.display = 'none';
+        document.getElementById('successMessage').style.display = 'block';
+        
+        // Flash the results section
+        document.querySelector('.results-card').classList.add('flash-animation');
+        setTimeout(function() {
+          document.querySelector('.results-card').classList.remove('flash-animation');
+        }, 1000);
+      }, 800);
+      
     } catch(error) {
+      document.getElementById('loadingIndicator').style.display = 'none';
       alert(error.message);
     }
   }
@@ -466,28 +495,45 @@
   // Initial calculation on page load
   window.addEventListener('DOMContentLoaded', calculateSIP);
   </script>
-  
+
   <style>
-  .bg-blue-light {
-    background-color: #f0f8ff;
-  }
-  .bg-blue-very-light {
-    background-color: #f5faff;
-  }
-  .text-primary {
-    color: #0d6efd !important;
-  }
-  .btn-primary {
-    background-color: #0d6efd;
-    border-color: #0d6efd;
-  }
-  .result-box {
-    transition: all 0.3s ease;
-  }
-  .result-box:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  }
+    /* Add animation for visual feedback */
+    .flash-animation {
+      animation: flash 1s;
+    }
+    
+    @keyframes flash {
+      0% { background-color: #f5faff; }
+      50% { background-color: #e1f0ff; }
+      100% { background-color: #f5faff; }
+    }
+    
+    /* Loading spinner styling */
+    .spinner-border {
+      width: 3rem;
+      height: 3rem;
+    }
+    
+    .bg-blue-light {
+      background-color: #f0f8ff;
+    }
+    .bg-blue-very-light {
+      background-color: #f5faff;
+    }
+    .text-primary {
+      color: #0d6efd !important;
+    }
+    .btn-primary {
+      background-color: #0d6efd;
+      border-color: #0d6efd;
+    }
+    .result-box {
+      transition: all 0.3s ease;
+    }
+    .result-box:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
   </style>
 
 

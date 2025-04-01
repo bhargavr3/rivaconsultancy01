@@ -394,6 +394,19 @@
                 <button id="calculateTaxBtn" class="btn btn-primary btn-lg w-100 py-3">
                   <i class="fas fa-calculator me-2"></i> Calculate Tax
                 </button>
+                
+                <!-- Loading Indicator -->
+                <div id="loadingIndicator" class="text-center mt-3" style="display: none;">
+                  <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Calculating...</span>
+                  </div>
+                  <p class="mt-2 text-muted">Calculating your tax...</p>
+                </div>
+                
+                <!-- Success Message -->
+                <div id="successMessage" class="alert alert-success mt-3 text-center" style="display: none;">
+                  <i class="fas fa-check-circle me-2"></i> Tax calculation complete!
+                </div>
               </div>
   
               <!-- Results Section -->
@@ -461,6 +474,10 @@
   // Calculate Income Tax based on Indian tax slabs (Old Regime)
   function calculateIncomeTax() {
     try {
+      // Show loading indicator
+      document.getElementById('loadingIndicator').style.display = 'block';
+      document.getElementById('successMessage').style.display = 'none';
+      
       // Get input values
       const income = parseFloat(document.getElementById('incomeAmount').value);
       const ageGroup = document.getElementById('ageGroup').value;
@@ -539,7 +556,20 @@
       document.getElementById('taxRate').textContent = effectiveRate.toFixed(2) + '%';
       document.getElementById('taxRegime').textContent = 'Old';
       
+      // Hide loading and show success after a short delay (for visual effect)
+      setTimeout(function() {
+        document.getElementById('loadingIndicator').style.display = 'none';
+        document.getElementById('successMessage').style.display = 'block';
+        
+        // Flash the results section
+        document.querySelector('.results-card').classList.add('flash-animation');
+        setTimeout(function() {
+          document.querySelector('.results-card').classList.remove('flash-animation');
+        }, 1000);
+      }, 800);
+      
     } catch(error) {
+      document.getElementById('loadingIndicator').style.display = 'none';
       alert(error.message);
     }
   }
@@ -557,6 +587,25 @@
   // Initial calculation on page load
   window.addEventListener('DOMContentLoaded', calculateIncomeTax);
   </script>
+
+  <style>
+    /* Add animation for visual feedback */
+    .flash-animation {
+      animation: flash 1s;
+    }
+    
+    @keyframes flash {
+      0% { background-color: #f5faff; }
+      50% { background-color: #e1f0ff; }
+      100% { background-color: #f5faff; }
+    }
+    
+    /* Loading spinner styling */
+    .spinner-border {
+      width: 3rem;
+      height: 3rem;
+    }
+  </style>
   
   <style>
   .bg-blue-light {
