@@ -466,7 +466,7 @@
 <div class="container-fluid bg-blue-light py-5" style="background-color: #f0f8ff;">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-lg-8">
+            <div class="col-lg-10">
                 <div class="text-center mb-5">
                     <h2 class="fw-bold text-primary mb-3">Loan EMI Calculator</h2>
                     <p class="lead text-muted">Calculate your monthly EMI and plan your finances better</p>
@@ -560,6 +560,38 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <!-- Amortization Schedule Section -->
+                    <div class="row mt-4" id="amortizationSection" style="display: none;">
+                        <div class="col-12">
+                            <div class="card shadow-sm">
+                                <div class="card-header bg-primary text-white">
+                                    <h5 class="mb-0"><i class="fas fa-table me-2"></i> Amortization Schedule (Yearly)</h5>
+                                </div>
+                                <div class="card-body p-0">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered mb-0">
+                                            <thead class="bg-light">
+                                                <tr>
+                                                    <th>Year</th>
+                                                    <th>Principal (₹)</th>
+                                                    <th>Interest (₹)</th>
+                                                    <th>Balance (₹)</th>
+                                                    <th>Paid (%)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="amortizationTableBody">
+                                                <!-- Will be populated by JavaScript -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="card-footer text-muted small">
+                                    <i class="fas fa-info-circle me-2"></i>This schedule shows the yearly breakdown of your loan repayment.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="text-center mt-4">
@@ -569,6 +601,137 @@
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const calculateEmiBtn = document.getElementById('calculateEmiBtn');
+    const loanAmountInput = document.getElementById('loanAmount');
+    const interestRateInput = document.getElementById('interestRate');
+    const loanTenureInput = document.getElementById('loanTenure');
+    const monthlyEmiDisplay = document.getElementById('monthlyEmi');
+    const totalInterestDisplay = document.getElementById('totalInterest');
+    const totalPaymentDisplay = document.getElementById('totalPayment');
+    const principalAmountDisplay = document.getElementById('principalAmount');
+    const displayInterestRate = document.getElementById('displayInterestRate');
+    const displayLoanTenure = document.getElementById('displayLoanTenure');
+    const amortizationSection = document.getElementById('amortizationSection');
+    const amortizationTableBody = document.getElementById('amortizationTableBody');
+
+    // Calculate EMI on button click
+    calculateEmiBtn.addEventListener('click', calculateEmi);
+
+    // Also calculate when inputs change
+    [loanAmountInput, interestRateInput, loanTenureInput].forEach(input => {
+        input.addEventListener('input', calculateEmi);
+    });
+
+    // Initial calculation
+    calculateEmi();
+
+    function calculateEmi() {
+        // Get input values
+        const principal = parseFloat(loanAmountInput.value);
+        const interestRate = parseFloat(interestRateInput.value);
+        const tenureYears = parseInt(loanTenureInput.value);
+        
+        // Validate inputs
+        if (isNaN(principal) || isNaN(interestRate) || isNaN(tenureYears)) {
+            return;
+        }
+        
+        // Convert annual interest rate to monthly and tenure to months
+        const monthlyInterestRate = interestRate / 12 / 100;
+        const tenureMonths = tenureYears * 12;
+        
+        // Calculate EMI using the formula: [P x R x (1+R)^N]/[(1+R)^N-1]
+        const emi = principal * monthlyInterestRate * 
+                   Math.pow(1 + monthlyInterestRate, tenureMonths) / 
+                   (Math.pow(1 + monthlyInterestRate, tenureMonths) - 1);
+        
+        // Calculate total payment and total interest
+        const totalPayment = emi * tenureMonths;
+        const totalInterest = totalPayment - principal;
+        
+        // Update the display
+        monthlyEmiDisplay.textContent = '₹' + emi.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        totalInterestDisplay.textContent = '₹' + totalInterest.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        totalPaymentDisplay.textContent = '₹' + totalPayment.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        principalAmountDisplay.textContent = '₹' + principal.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        displayInterestRate.textContent = interestRate + '%';
+        displayLoanTenure.textContent = tenureYears + ' Years';
+        
+        // Generate amortization schedule
+        generateAmortizationSchedule(principal, monthlyInterestRate, tenureMonths, emi);
+        
+        // Show amortization section
+        amortizationSection.style.display = 'block';
+    }
+    
+    function generateAmortizationSchedule(principal, monthlyRate, months, emi) {
+        let balance = principal;
+        let totalPaid = 0;
+        let year = new Date().getFullYear();
+        let html = '';
+        
+        // Calculate monthly and then aggregate yearly
+        for (let month = 1; month <= months; month++) {
+            const interestForMonth = balance * monthlyRate;
+            const principalForMonth = emi - interestForMonth;
+            
+            // Only show yearly entries (or when balance reaches zero)
+            if (month % 12 === 0 || month === months) {
+                // Calculate totals for this year
+                let yearStartMonth = month - (month % 12 || 12) + 1;
+                let yearEndMonth = month % 12 === 0 ? month : months;
+                let yearMonths = yearEndMonth - yearStartMonth + 1;
+                
+                let yearPrincipal = 0;
+                let yearInterest = 0;
+                let tempBalance = balance;
+                
+                for (let m = yearStartMonth; m <= yearEndMonth; m++) {
+                    const mInterest = tempBalance * monthlyRate;
+                    const mPrincipal = emi - mInterest;
+                    yearPrincipal += mPrincipal;
+                    yearInterest += mInterest;
+                    tempBalance -= mPrincipal;
+                }
+                
+                totalPaid += yearPrincipal;
+                const paidPercent = (totalPaid / principal * 100).toFixed(2);
+                
+                html += `
+                    <tr>
+                        <td>${year}</td>
+                        <td>₹${Math.round(yearPrincipal).toLocaleString('en-IN')}</td>
+                        <td>₹${Math.round(yearInterest).toLocaleString('en-IN')}</td>
+                        <td>₹${Math.round(balance - yearPrincipal).toLocaleString('en-IN')}</td>
+                        <td>${paidPercent}%</td>
+                    </tr>
+                `;
+                
+                year++;
+            }
+            
+            // Update balance for next iteration
+            balance -= principalForMonth;
+            
+            // Break if balance is paid off (might be slightly negative due to rounding)
+            if (balance < 1) {
+                balance = 0;
+                break;
+            }
+        }
+        
+        amortizationTableBody.innerHTML = html;
+    }
+    
+    // Helper function to format numbers with commas
+    function formatNumber(num) {
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+});
+</script>
  
 
 
