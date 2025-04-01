@@ -462,8 +462,10 @@
 </div>
 <!-- Why Choose Us Section End -->
 
-<!-- Loan Calculator Section -->
 
+
+
+<!-- Loan Calculator Section -->
 <!-- Loan Calculator Section -->
 <div class="container-fluid bg-blue-light py-5" style="background-color: #f0f8ff;">
     <div class="container">
@@ -514,6 +516,19 @@
                             <button id="calculateEmiBtn" class="btn btn-primary btn-lg w-100 py-3">
                                 <i class="fas fa-calculator me-2"></i> Calculate EMI
                             </button>
+                            
+                            <!-- Loading Indicator -->
+                            <div id="loadingIndicator" class="text-center mt-3" style="display: none;">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Calculating...</span>
+                                </div>
+                                <p class="mt-2 text-muted">Calculating your EMI...</p>
+                            </div>
+                            
+                            <!-- Success Message -->
+                            <div id="successMessage" class="alert alert-success mt-3 text-center" style="display: none;">
+                                <i class="fas fa-check-circle me-2"></i> EMI calculation complete!
+                            </div>
                         </div>
 
                         <!-- Results Section -->
@@ -563,65 +578,42 @@
                         </div>
                     </div>
                     
-                    <!-- Amortization Schedule Section -->
+                    <!-- Combined Amortization Schedule Section -->
                     <div class="row mt-4" id="amortizationSection" style="display: none;">
                         <div class="col-12">
-                            <!-- Yearly Schedule -->
-                            <div class="card shadow-sm mb-4">
-                                <div class="card-header bg-primary text-white">
-                                    <h5 class="mb-0"><i class="fas fa-table me-2"></i> Amortization Schedule (Yearly)</h5>
+                            <div class="card shadow-sm">
+                                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0"><i class="fas fa-table me-2"></i> Complete Amortization Schedule</h5>
+                                    <div>
+                                        <button class="btn btn-sm btn-light me-2" id="expandAllYears">
+                                            <i class="fas fa-expand me-1"></i> Expand All
+                                        </button>
+                                        <button class="btn btn-sm btn-light" id="collapseAllYears">
+                                            <i class="fas fa-compress me-1"></i> Collapse All
+                                        </button>
+                                    </div>
                                 </div>
                                 <div class="card-body p-0">
                                     <div class="table-responsive">
                                         <table class="table table-bordered mb-0">
                                             <thead class="bg-light">
                                                 <tr>
-                                                    <th>Year</th>
-                                                    <th>Principal (₹)</th>
-                                                    <th>Interest (₹)</th>
-                                                    <th>Balance (₹)</th>
-                                                    <th>Paid (%)</th>
+                                                    <th style="width: 15%">Period</th>
+                                                    <th style="width: 20%">Principal (₹)</th>
+                                                    <th style="width: 20%">Interest (₹)</th>
+                                                    <th style="width: 20%">Balance (₹)</th>
+                                                    <th style="width: 15%">Paid (%)</th>
+                                                    <th style="width: 10%"></th>
                                                 </tr>
                                             </thead>
-                                            <tbody id="amortizationTableBody">
+                                            <tbody id="combinedAmortizationTable">
                                                 <!-- Will be populated by JavaScript -->
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                                 <div class="card-footer text-muted small">
-                                    <i class="fas fa-info-circle me-2"></i>Click on any year to view monthly breakdown.
-                                </div>
-                            </div>
-                            
-                            <!-- Monthly Schedule (hidden by default) -->
-                            <div class="card shadow-sm" id="monthlyScheduleCard" style="display: none;">
-                                <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
-                                    <h5 class="mb-0"><i class="fas fa-calendar-alt me-2"></i> Monthly Amortization for Year <span id="selectedYear"></span></h5>
-                                    <button type="button" class="btn btn-sm btn-light" id="closeMonthlySchedule">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                </div>
-                                <div class="card-body p-0">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered mb-0">
-                                            <thead class="bg-light">
-                                                <tr>
-                                                    <th>Month</th>
-                                                    <th>Principal (₹)</th>
-                                                    <th>Interest (₹)</th>
-                                                    <th>Balance (₹)</th>
-                                                    <th>Paid (%)</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="monthlyAmortizationTableBody">
-                                                <!-- Will be populated by JavaScript -->
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="card-footer text-muted small">
-                                    <i class="fas fa-info-circle me-2"></i>Detailed monthly payment breakdown for the selected year.
+                                    <i class="fas fa-info-circle me-2"></i>Click on year rows to show/hide monthly details.
                                 </div>
                             </div>
                         </div>
@@ -649,15 +641,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const displayInterestRate = document.getElementById('displayInterestRate');
     const displayLoanTenure = document.getElementById('displayLoanTenure');
     const amortizationSection = document.getElementById('amortizationSection');
-    const amortizationTableBody = document.getElementById('amortizationTableBody');
-    const monthlyScheduleCard = document.getElementById('monthlyScheduleCard');
-    const monthlyAmortizationTableBody = document.getElementById('monthlyAmortizationTableBody');
-    const selectedYearSpan = document.getElementById('selectedYear');
-    const closeMonthlyScheduleBtn = document.getElementById('closeMonthlySchedule');
-
-    // Store amortization data for monthly view
-    let amortizationData = [];
-    let monthlyData = {};
+    const combinedAmortizationTable = document.getElementById('combinedAmortizationTable');
+    const expandAllYearsBtn = document.getElementById('expandAllYears');
+    const collapseAllYearsBtn = document.getElementById('collapseAllYears');
+    const loadingIndicator = document.getElementById('loadingIndicator');
+    const successMessage = document.getElementById('successMessage');
 
     // Calculate EMI on button click
     calculateEmiBtn.addEventListener('click', calculateEmi);
@@ -667,15 +655,33 @@ document.addEventListener('DOMContentLoaded', function() {
         input.addEventListener('input', calculateEmi);
     });
 
-    // Close monthly schedule
-    closeMonthlyScheduleBtn.addEventListener('click', function() {
-        monthlyScheduleCard.style.display = 'none';
+    // Expand/Collapse all buttons
+    expandAllYearsBtn.addEventListener('click', function() {
+        document.querySelectorAll('.yearly-row').forEach(row => {
+            const year = row.getAttribute('data-year');
+            const monthlyRows = document.querySelectorAll(`.monthly-row-${year}`);
+            monthlyRows.forEach(r => r.style.display = '');
+            row.querySelector('.toggle-icon').className = 'toggle-icon fas fa-minus';
+        });
+    });
+
+    collapseAllYearsBtn.addEventListener('click', function() {
+        document.querySelectorAll('.yearly-row').forEach(row => {
+            const year = row.getAttribute('data-year');
+            const monthlyRows = document.querySelectorAll(`.monthly-row-${year}`);
+            monthlyRows.forEach(r => r.style.display = 'none');
+            row.querySelector('.toggle-icon').className = 'toggle-icon fas fa-plus';
+        });
     });
 
     // Initial calculation
     calculateEmi();
 
     function calculateEmi() {
+        // Show loading indicator
+        loadingIndicator.style.display = 'block';
+        successMessage.style.display = 'none';
+        
         // Get input values
         const principal = parseFloat(loanAmountInput.value);
         const interestRate = parseFloat(interestRateInput.value);
@@ -683,6 +689,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Validate inputs
         if (isNaN(principal) || isNaN(interestRate) || isNaN(tenureYears)) {
+            loadingIndicator.style.display = 'none';
             return;
         }
         
@@ -712,85 +719,51 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Show amortization section
         amortizationSection.style.display = 'block';
-        // Hide monthly schedule when recalculating
-        monthlyScheduleCard.style.display = 'none';
+        
+        // Hide loading and show success after a short delay (for visual effect)
+        setTimeout(function() {
+            loadingIndicator.style.display = 'none';
+            successMessage.style.display = 'block';
+            
+            // Flash the results section
+            document.querySelector('.results-card').classList.add('flash-animation');
+            setTimeout(function() {
+                document.querySelector('.results-card').classList.remove('flash-animation');
+            }, 1000);
+            
+            // Auto-expand first year
+            const firstYearRow = document.querySelector('.yearly-row');
+            if (firstYearRow) {
+                const year = firstYearRow.getAttribute('data-year');
+                const monthlyRows = document.querySelectorAll(`.monthly-row-${year}`);
+                monthlyRows.forEach(r => r.style.display = '');
+                firstYearRow.querySelector('.toggle-icon').className = 'toggle-icon fas fa-minus';
+            }
+        }, 800);
     }
     
     function generateAmortizationSchedule(principal, monthlyRate, months, emi) {
         let balance = principal;
         let totalPaid = 0;
-        let year = new Date().getFullYear();
+        let currentYear = new Date().getFullYear();
         let html = '';
         
-        // Reset stored data
-        amortizationData = [];
-        monthlyData = {};
-        
-        // Calculate monthly and then aggregate yearly
+        // Calculate monthly payments
+        let monthlyPayments = [];
         for (let month = 1; month <= months; month++) {
             const interestForMonth = balance * monthlyRate;
             const principalForMonth = emi - interestForMonth;
+            totalPaid += principalForMonth;
             
-            // Store monthly data for detailed view
-            const currentYear = year + Math.floor((month - 1) / 12);
-            if (!monthlyData[currentYear]) {
-                monthlyData[currentYear] = [];
-            }
-            
-            monthlyData[currentYear].push({
+            monthlyPayments.push({
                 month: month,
+                year: currentYear + Math.floor((month - 1) / 12),
+                monthName: getMonthName((month - 1) % 12),
                 principal: principalForMonth,
                 interest: interestForMonth,
                 balance: balance - principalForMonth,
-                paidPercent: ((totalPaid + principalForMonth) / principal * 100)
+                paidPercent: (totalPaid / principal * 100)
             });
-            
-            // Only show yearly entries (or when balance reaches zero)
-            if (month % 12 === 0 || month === months) {
-                // Calculate totals for this year
-                let yearStartMonth = month - (month % 12 || 12) + 1;
-                let yearEndMonth = month % 12 === 0 ? month : months;
-                let yearMonths = yearEndMonth - yearStartMonth + 1;
-                
-                let yearPrincipal = 0;
-                let yearInterest = 0;
-                let tempBalance = balance;
-                
-                for (let m = yearStartMonth; m <= yearEndMonth; m++) {
-                    const mInterest = tempBalance * monthlyRate;
-                    const mPrincipal = emi - mInterest;
-                    yearPrincipal += mPrincipal;
-                    yearInterest += mInterest;
-                    tempBalance -= mPrincipal;
-                }
-                
-                totalPaid += yearPrincipal;
-                const paidPercent = (totalPaid / principal * 100).toFixed(2);
-                const yearEndBalance = balance - yearPrincipal;
-                
-                // Store yearly data for click events
-                amortizationData.push({
-                    year: year,
-                    startMonth: yearStartMonth,
-                    endMonth: yearEndMonth,
-                    principal: yearPrincipal,
-                    interest: yearInterest,
-                    balance: yearEndBalance,
-                    paidPercent: paidPercent
-                });
-                
-                html += `
-                    <tr class="yearly-row" data-year="${year}" data-start="${yearStartMonth}" data-end="${yearEndMonth}">
-                        <td>${year}</td>
-                        <td>₹${Math.round(yearPrincipal).toLocaleString('en-IN')}</td>
-                        <td>₹${Math.round(yearInterest).toLocaleString('en-IN')}</td>
-                        <td>₹${Math.round(yearEndBalance).toLocaleString('en-IN')}</td>
-                        <td>${paidPercent}%</td>
-                    </tr>
-                `;
-                
-                year++;
-            }
             
             // Update balance for next iteration
             balance -= principalForMonth;
@@ -802,46 +775,73 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-        amortizationTableBody.innerHTML = html;
+        // Group by year
+        const paymentsByYear = {};
+        monthlyPayments.forEach(payment => {
+            if (!paymentsByYear[payment.year]) {
+                paymentsByYear[payment.year] = [];
+            }
+            paymentsByYear[payment.year].push(payment);
+        });
+        
+        // Generate table rows
+        html = '';
+        Object.keys(paymentsByYear).sort().forEach(year => {
+            const yearPayments = paymentsByYear[year];
+            const yearPrincipal = yearPayments.reduce((sum, p) => sum + p.principal, 0);
+            const yearInterest = yearPayments.reduce((sum, p) => sum + p.interest, 0);
+            const yearEndBalance = yearPayments[yearPayments.length - 1].balance;
+            const paidPercent = (yearPayments[yearPayments.length - 1].paidPercent).toFixed(2);
+            
+            // Year row
+            html += `
+                <tr class="yearly-row" data-year="${year}">
+                    <td><strong>${year}</strong></td>
+                    <td><strong>₹${Math.round(yearPrincipal).toLocaleString('en-IN')}</strong></td>
+                    <td><strong>₹${Math.round(yearInterest).toLocaleString('en-IN')}</strong></td>
+                    <td><strong>₹${Math.round(yearEndBalance).toLocaleString('en-IN')}</strong></td>
+                    <td><strong>${paidPercent}%</strong></td>
+                    <td class="text-center">
+                        <span class="toggle-icon fas fa-plus" style="cursor: pointer;"></span>
+                    </td>
+                </tr>
+            `;
+            
+            // Monthly rows (hidden by default)
+            yearPayments.forEach(payment => {
+                html += `
+                    <tr class="monthly-row monthly-row-${year}" style="display: none;">
+                        <td>${payment.monthName} ${payment.year}</td>
+                        <td>₹${Math.round(payment.principal).toLocaleString('en-IN')}</td>
+                        <td>₹${Math.round(payment.interest).toLocaleString('en-IN')}</td>
+                        <td>₹${Math.round(payment.balance).toLocaleString('en-IN')}</td>
+                        <td>${payment.paidPercent.toFixed(2)}%</td>
+                        <td></td>
+                    </tr>
+                `;
+            });
+        });
+        
+        combinedAmortizationTable.innerHTML = html;
         
         // Add click event to yearly rows
         document.querySelectorAll('.yearly-row').forEach(row => {
             row.addEventListener('click', function() {
                 const year = this.getAttribute('data-year');
-                const startMonth = parseInt(this.getAttribute('data-start'));
-                const endMonth = parseInt(this.getAttribute('data-end'));
+                const icon = this.querySelector('.toggle-icon');
+                const monthlyRows = document.querySelectorAll(`.monthly-row-${year}`);
                 
-                showMonthlySchedule(year, startMonth, endMonth);
+                if (icon.classList.contains('fa-plus')) {
+                    // Expand
+                    monthlyRows.forEach(r => r.style.display = '');
+                    icon.className = 'toggle-icon fas fa-minus';
+                } else {
+                    // Collapse
+                    monthlyRows.forEach(r => r.style.display = 'none');
+                    icon.className = 'toggle-icon fas fa-plus';
+                }
             });
         });
-    }
-    
-    function showMonthlySchedule(year, startMonth, endMonth) {
-        selectedYearSpan.textContent = year;
-        
-        // Generate monthly table
-        let html = '';
-        const yearData = monthlyData[year];
-        
-        if (yearData) {
-            yearData.forEach(month => {
-                html += `
-                    <tr>
-                        <td>${getMonthName((month.month - 1) % 12)} ${year + Math.floor((month.month - 1) / 12)}</td>
-                        <td>₹${Math.round(month.principal).toLocaleString('en-IN')}</td>
-                        <td>₹${Math.round(month.interest).toLocaleString('en-IN')}</td>
-                        <td>₹${Math.round(month.balance).toLocaleString('en-IN')}</td>
-                        <td>${month.paidPercent.toFixed(2)}%</td>
-                    </tr>
-                `;
-            });
-        }
-        
-        monthlyAmortizationTableBody.innerHTML = html;
-        monthlyScheduleCard.style.display = 'block';
-        
-        // Scroll to monthly schedule
-        monthlyScheduleCard.scrollIntoView({ behavior: 'smooth' });
     }
     
     function getMonthName(monthIndex) {
@@ -853,7 +853,30 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
- 
+
+<style>
+    /* Add animation for visual feedback */
+    .flash-animation {
+        animation: flash 1s;
+    }
+    
+    @keyframes flash {
+        0% { background-color: #f5faff; }
+        50% { background-color: #e1f0ff; }
+        100% { background-color: #f5faff; }
+    }
+    
+    /* Smooth transitions for expand/collapse */
+    tr.monthly-row {
+        transition: all 0.3s ease;
+    }
+    
+    /* Loading spinner styling */
+    .spinner-border {
+        width: 3rem;
+        height: 3rem;
+    }
+</style>
 
 
 
