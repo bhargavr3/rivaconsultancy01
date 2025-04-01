@@ -598,11 +598,12 @@
                                         <table class="table table-bordered mb-0">
                                             <thead class="bg-light">
                                                 <tr>
-                                                    <th style="width: 15%">Period</th>
-                                                    <th style="width: 20%">Principal (₹)</th>
-                                                    <th style="width: 20%">Interest (₹)</th>
-                                                    <th style="width: 20%">Balance (₹)</th>
-                                                    <th style="width: 15%">Paid (%)</th>
+                                                    <th style="width: 12%">Period</th>
+                                                    <th style="width: 15%">EMI (₹)</th>
+                                                    <th style="width: 15%">Principal (₹)</th>
+                                                    <th style="width: 15%">Interest (₹)</th>
+                                                    <th style="width: 15%">Balance (₹)</th>
+                                                    <th style="width: 13%">Paid (%)</th>
                                                     <th style="width: 10%"></th>
                                                 </tr>
                                             </thead>
@@ -759,6 +760,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 month: month,
                 year: currentYear + Math.floor((month - 1) / 12),
                 monthName: getMonthName((month - 1) % 12),
+                emi: emi,
                 principal: principalForMonth,
                 interest: interestForMonth,
                 balance: balance - principalForMonth,
@@ -788,6 +790,7 @@ document.addEventListener('DOMContentLoaded', function() {
         html = '';
         Object.keys(paymentsByYear).sort().forEach(year => {
             const yearPayments = paymentsByYear[year];
+            const yearEmi = yearPayments.reduce((sum, p) => sum + p.emi, 0);
             const yearPrincipal = yearPayments.reduce((sum, p) => sum + p.principal, 0);
             const yearInterest = yearPayments.reduce((sum, p) => sum + p.interest, 0);
             const yearEndBalance = yearPayments[yearPayments.length - 1].balance;
@@ -797,6 +800,7 @@ document.addEventListener('DOMContentLoaded', function() {
             html += `
                 <tr class="yearly-row" data-year="${year}">
                     <td><strong>${year}</strong></td>
+                    <td><strong>₹${Math.round(yearEmi).toLocaleString('en-IN')}</strong></td>
                     <td><strong>₹${Math.round(yearPrincipal).toLocaleString('en-IN')}</strong></td>
                     <td><strong>₹${Math.round(yearInterest).toLocaleString('en-IN')}</strong></td>
                     <td><strong>₹${Math.round(yearEndBalance).toLocaleString('en-IN')}</strong></td>
@@ -812,6 +816,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 html += `
                     <tr class="monthly-row monthly-row-${year}" style="display: none;">
                         <td>${payment.monthName} ${payment.year}</td>
+                        <td>₹${Math.round(payment.emi).toLocaleString('en-IN')}</td>
                         <td>₹${Math.round(payment.principal).toLocaleString('en-IN')}</td>
                         <td>₹${Math.round(payment.interest).toLocaleString('en-IN')}</td>
                         <td>₹${Math.round(payment.balance).toLocaleString('en-IN')}</td>
@@ -875,6 +880,11 @@ document.addEventListener('DOMContentLoaded', function() {
     .spinner-border {
         width: 3rem;
         height: 3rem;
+    }
+    
+    /* Table styling */
+    .table th, .table td {
+        vertical-align: middle;
     }
 </style>
 
